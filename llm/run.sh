@@ -48,10 +48,7 @@ function inference_exec_kubernetes()
         echo "deployment metadata name not provided"
         helpFunction
     fi
-
-    mkdir $mount_path/$model_name/config
-    cp $wdir/config.properties $mount_path/$model_name/config/
-
+    
     export INGRESS_HOST=$(kubectl get po -l istio=ingressgateway -n istio-system -o jsonpath='{.items[0].status.hostIP}')
     export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
 
